@@ -1,0 +1,203 @@
+﻿@model LabStore.ViewModels.OrderViewModel
+
+@{
+    ViewBag.Title = "OrderForm";
+}
+
+<h2>Nowe zamówienie</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        @using (Html.BeginForm("NewOrder", "Orders", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Formularz zamówienia</h4>
+            <hr />
+            @Html.ValidationSummary(true, "Proszę poprawić następujące dane:", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(o => o.DateFor, new { @class = "col-md-2 control-label" })
+                <div class="col-xs-6">
+                    <div class="input-group" id="datetimepicker2">
+                        <span class="input-group-addon" style="cursor:pointer;">
+                            <i class="glyphicon glyphicon-calendar"></i>
+                        </span>
+                        @Html.TextBoxFor(o => o.DateFor, "{0:dd/MM/yyyy}", new { @class = "form-control", @id = "dateFor", @placeholder = Model.OrderBaseList.First().DateFor.ToShortDateString() })
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(o => o.DateFor)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Grade, new { @class = "col-md-2 control-label" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(o => o.Grade, new { @class = "form-control", @id = "grade", @placeholder = Model.OrderBaseList.First().Grade })
+                </div>
+                @Html.ValidationMessageFor(o => o.Grade)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(o => o.Comment, new { @class = "col-md-2 control-label" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(o => o.Comment, new { @class = "form-control", @id = "comment", @placeholder = Model.OrderBaseList.First().Comment })
+                </div>
+                @Html.ValidationMessageFor(o => o.Comment)
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Odczynnik", new { @class = "col-md-2 control-label" })
+                <div class="col-xs-6">
+                    @Html.RadioButtonFor(o => o.IsEquipment, "false", new { @id = "reagentId", @onclick = "showROrEInput()" })
+                </div>
+                @Html.ValidationMessageFor(o => o.IsEquipment)
+            </div>
+            <div class="form-group">
+                @Html.Label("Sprzęt", new { @class = "col-md-2 control-label" })
+                <div class="col-xs-6">
+                    @Html.RadioButtonFor(o => o.IsEquipment, "true", new { @id = "equipmentId", @onclick = "showROrEInput()" })
+                </div>
+                @Html.ValidationMessageFor(o => o.IsEquipment)
+            </div>
+
+            <div id="equipmentInput" style="display: none;">
+                <div class="form-group">
+                    @Html.LabelFor(o => o.EquipmentName, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.TextBoxFor(o => o.EquipmentName, new { @class = "form-control", @id = "equipment" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.EquipmentName)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(o => o.EquipmentAmount, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.TextBoxFor(o => o.EquipmentAmount, new { @class = "form-control", @id = "equipmentAmount" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.EquipmentAmount)
+                </div>
+            </div>
+
+            <div id="reagentInput" style="display: none;">
+                <div class="form-group">
+                    @Html.LabelFor(o => o.ReagentName, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.TextBoxFor(o => o.ReagentName, new { @class = "form-control", @id = "reagent" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.ReagentName)
+                </div>
+                <div class="form-group">
+                    @Html.Label("Roztwór", new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.RadioButtonFor(o => o.IsSolid, "false", new { @id = "solutionId", @onclick = "showSolutionOrSolidInput()" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Gotowy odczynnik", new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.RadioButtonFor(o => o.IsSolid, "true", new { @id = "solidId", @onclick = "showSolutionOrSolidInput()" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.IsSolid)
+                </div>
+            </div>
+
+            <div id="solutionInput" style="display: none;">
+                <div class="form-group">
+                    @Html.LabelFor(o => o.Concentration, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.TextBoxFor(o => o.Concentration, new { @class = "form-control", @id = "concentration" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.Concentration)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(o => o.ConcentrationUnitId, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.DropDownListFor(o => o.ConcentrationUnitId, new SelectList(Model.ConcentrationUnits, "Id", "Name"),
+                "Wybierz jednostkę", new { @class = "form-control", @id = "concentrationUnit" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.ConcentrationUnitId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(o => o.Volume, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.TextBoxFor(o => o.Volume, new { @class = "form-control", @id = "volume" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.Volume)
+                </div>
+            </div>
+
+            <div id="solidInput" style="display: none;">
+                <div class="form-group">
+                    @Html.LabelFor(o => o.ReagentAmount, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.TextBoxFor(o => o.ReagentAmount, new { @class = "form-control", @id = "reagentAmount" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.ReagentAmount)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(o => o.UnitId, new { @class = "col-md-2 control-label" })
+                    <div class="col-xs-6">
+                        @Html.DropDownListFor(o => o.UnitId, new SelectList(Model.Units, "Id", "Name"),
+                "Wybierz jednostkę", new { @class = "form-control", @id = "unit" })
+                    </div>
+                    @Html.ValidationMessageFor(o => o.UnitId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-xs-6">
+                    <input type="submit" value="Dodaj następny" class="btn btn-primary" onclick="validateOrderFormInputs()" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-4">
+        <h4>Twoje bieżące zamówienie</h4>
+        <hr />
+        <ul>
+            @foreach (var equipmentOrder in Model.EquipmentOrders)
+            {
+                if (!equipmentOrder.UserId.Equals("0"))
+                {
+                    <li class='list-group-item orderList'>
+                        @equipmentOrder.Name @equipmentOrder.Amount szt.
+                        @Html.ActionLink("X", "DeleteItem", "Orders", new { @databaseName = "EquipmentOrders", @id = equipmentOrder.Id }, new { @class = "pull-right" })
+                    </li>
+                }
+            }
+
+            @foreach (var solidOrder in Model.SolidOrders)
+            {
+                if (!solidOrder.UserId.Equals("0"))
+                {
+                    <li class='list-group-item orderList'>
+                        @solidOrder.Name
+                        @solidOrder.Amount@Model.Units.Single(o => o.Id == solidOrder.UnitId).Name
+                        @Html.ActionLink("X", "DeleteItem", "Orders", new { @databaseName = "SolidOrders", @id = solidOrder.Id }, new { @class = "pull-right" })
+                    </li>
+                }
+            }
+
+            @foreach (var solutionOrder in Model.SolutionOrders)
+            {
+                if (!solutionOrder.UserId.Equals("0"))
+                {
+                    <li class='list-group-item orderList'>
+                        @solutionOrder.Name roztwór
+                        @solutionOrder.Concentration@Model.ConcentrationUnits.SingleOrDefault(o => o.Id == solutionOrder.ConcentrationUnitId).Name
+                        @solutionOrder.Volume mL
+                        @Html.ActionLink("X", "DeleteItem", "Orders", new { @databaseName = "SolutionOrders", @id = solutionOrder.Id }, new { @class = "pull-right" })
+                    </li>
+                }
+            }
+        </ul>
+        @Html.ActionLink("Wyślij zamówienie", "Save", "Orders", new { @id = Model.UserId }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Anuluj zamówienie", "CancelOrder", "Orders", new { @id = Model.UserId }, new { @class = "btn btn-primary cancel-button" })
+    </div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/LabManager/lm-custom-number-validate.js"></script>
+    <script src="~/Scripts/LabManager/lm-order-autocomplete.js"></script>
+    <script src="~/Scripts/LabManager/lm-order-display-inputs.js"></script>
+    <script src="~/Scripts/LabManager/lm-order-datetimepicker.js"></script>
+    <script src="~/Scripts/LabManager/lm-order-placeholder.js"></script>
+    <script src="~/Scripts/LabManager/lm-order-custom-validate.js"></script>
+}

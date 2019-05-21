@@ -1,0 +1,24 @@
+﻿@model LabStore.Models.IndexViewModel
+@{
+    ViewBag.Title = "Moje konto";
+}
+
+<h2>@ViewBag.Title.</h2>
+<h4>Zarządaj swoim kontem</h4>
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <hr />
+
+    @if (Model.HasPassword)
+    {
+        @Html.ActionLink("Zmień hasło", "ChangePassword", null, null, new { @class = "btn btn-primary" })
+
+    }
+    else
+    {
+        @Html.ActionLink("Utwórz", "SetPassword")
+    }
+
+    @Html.ActionLink("Zmień ustawienia konta", "Edit", "Users", new {id = Model.Id }, new { @class = "btn btn-primary" })
+
+</div>

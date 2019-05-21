@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Odczynniki";
+}
+
+<h2>Lista dostępnych odczynników</h2>
+
+<p>
+    @Html.ActionLink("Dodaj odczynnik", "New", "Reagents", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="reagents" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Odczynniki</th>
+            <th>Początkowa ilość</th>
+            <th>Zużyta ilość</th>
+            <th>Dostępna ilość</th>
+            <th>Lokalizacja</th>
+            <th>Uwagi</th>
+            <th>Edytuj</th>
+            <th>Usuń</th>
+            <th>Wprowadź zużycie</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.js"></script>
+    <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Scripts/datatables/buttons.flash.min.js"></script>
+    <script src="~/Scripts/datatables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/datatables/buttons.print.min.js"></script>
+    <script src="~/Scripts/LabManager/lm-admin-reagent-table.js"></script>
+}

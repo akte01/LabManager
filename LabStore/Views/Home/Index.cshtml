@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>LabManager</h1>
+    <p class="lead">Aplikacja umożliwiająca sprawne zarządzenie odczynnikami chemicznymi w każdym laboratorium chemicznym.</p>
+    <p>@Html.ActionLink(HttpUtility.HtmlDecode("Złóż zamówienie &raquo;"), "NewItem", "Orders", null, new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Chempur - karty charakterystki</h2>
+        <p>
+            Na podanej stronie, w miejscu wyszukiwania, należy wpisać nazwę lub fragment nazwy produktu; karta charakterystyki
+            wyświetli się po kliknięciu w widniejącą w trzeciej kolumnie ikonkę.
+        </p>
+        <p><a class="btn btn-primary" href="http://chempur.pl/katalog/karty-charakterystyk/">Przejdź &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>POCh - karty charakterystyki</h2>
+        <p>Na podanej stronie można wyszukać wybrane odczynniki po nazwie, numerze CAS lub po numerze WE</p>
+        <p><a class="btn btn-primary" href="http://www.poch.com.pl/1/karty-charakterystyk,0,0">Przejdź &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Alchem - karty charakterystyki</h2>
+        <p>
+            Znajdą tu Państwo linki do kart charakterystki odczynników chemicznych dostępnych u innych producentów
+            m.in.: Sigma-Aldrich, HACH, Merck Millipore.
+        </p>
+        <p><a class="btn btn-primary" href="https://alchem.com.pl/download/karty-charakterystyki">Przejdź &raquo;</a></p>
+    </div>
+</div>

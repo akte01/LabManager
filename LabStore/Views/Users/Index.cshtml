@@ -1,0 +1,26 @@
+﻿@model IEnumerable<LabStore.ViewModels.UserViewModel>
+@{
+                /**/
+
+                ViewBag.Title = "Użytkownicy";
+}
+
+<h2>Użytkownicy</h2>
+<h4>Zarządzaj kontami użytkowników</h4>
+<table id="users" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>E-mail</th>
+            <th>Edytuj</th>
+            <th>Usuń</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/LabManager/lm-admin-users-table.js"></script>
+}

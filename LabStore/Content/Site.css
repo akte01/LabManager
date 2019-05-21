@@ -1,0 +1,124 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea,
+input-group {
+    max-width: 360px;
+}
+
+.jumbotron {
+    background-image: url("beaker-biology-chemical-1366942.jpg");
+    background-size: cover;
+    color: white;
+}
+
+    .jumbotron h1,
+    .jumbotron .h1 {
+        text-shadow: 2px 3px 0 black;
+    }
+
+.btn-primary {
+    background-color: #cd37ca;
+    border-color: #cd37ca;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+
+    .btn-primary:hover {
+        background-color: #f63ff2;
+        border-color: #f63ff2;
+    }
+
+    .btn-primary:active,
+    .btn-primary:focus {
+        background-color: #772953;
+        border-color: #511c39;
+    }
+
+    .btn-primary:active:hover,
+    .btn-primary.active:hover,
+    .open > .dropdown-toggle.btn-primary:hover,
+    .btn-primary:active:focus,
+    .btn-primary.active:focus,
+    .open > .dropdown-toggle.btn-primary:focus,
+    .btn-primary:active.focus,
+    .btn-primary.active.focus,
+    .open > .dropdown-toggle.btn-primary.focus {
+        background-color: #772953;
+        border-color: #511c39;
+    }
+
+#addConsump {
+    width: 70px;
+}
+
+.field-validation-error {
+    color: #b94a48;
+}
+
+a.customPDFbutton {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    background-image: none;
+    background-color: #cd37ca;
+    border-color: #cd37ca;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+    a.customPDFbutton:active:not(.disabled):hover:not(.disabled) {
+        background-image: none;
+        background-color: #772953;
+        border-color: #511c39;
+    }
+
+    a.customPDFbutton:hover:not(.disabled) {
+        background-image: none;
+        background-color: #f63ff2;
+        border-color: #f63ff2;
+    }
+
+.twitter-typeahead, .tt-hint, .tt-input, .tt-menu {
+    width: 100%;
+}
+
+.closeButton {
+    cursor: pointer;
+}
+
+.changeStatusForm {
+    margin-bottom: 10px;
+}
+
+.disabledEditor {
+    cursor: default;
+    color: #e95420;
+}
+
+.orderList {
+   margin-left: -40px;
+}
+
+.cancel-button {
+    margin-left: 49px;
+    margin-right: 0px;
+}
+

@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "UserOrders";
+}
+
+<h2>Moje zamówienia</h2>
+
+<p>
+    @Html.ActionLink("Złóż zamówienie", "NewItem", "Orders", null, new { @class = "btn btn-primary" })
+</p>
+<table id="orders" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Zamówienie</th>
+            <th>Na kiedy?</th>
+            <th>Klasa</th>
+            <th>Uwagi</th>
+            <th>Status</th>
+            <th>Edytuj</th>
+            <th>Usuń</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.js"></script>
+    <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Scripts/datatables/buttons.flash.min.js"></script>
+    <script src="~/Scripts/datatables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/datatables/buttons.print.min.js"></script>
+    <script src="~/Scripts/LabManager/lm-user-order-table.js"></script>
+}

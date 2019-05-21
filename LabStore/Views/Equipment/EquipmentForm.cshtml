@@ -1,0 +1,61 @@
+﻿@model LabStore.ViewModels.EquipmentViewModel
+@using FlashMessage;
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "Equipment", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>@Model.Subtitle</h4>
+    <hr />
+    <span class="text-danger">@Html.Flash()</span>
+    @Html.ValidationSummary(true, "Proszę poprawić następujące dane:", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(e => e.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(e => e.Name, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(e => e.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(e => e.Amount, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(e => e.Amount, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(r => r.Amount)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(e => e.EquipmentLocationId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(e => e.EquipmentLocationId, new SelectList(Model.EquipmentLocations, "Id", "Name"),
+           "Wybierz miejsce przechowywania", new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(e => e.EquipmentLocationId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(e => e.Comment, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(e => e.Comment, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(e => e.Comment)
+    </div>
+    @Html.HiddenFor(e => e.Id)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@Model.SaveButtonText" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/LabManager/lm-custom-number-validate.js"></script>
+}
+
+

@@ -1,0 +1,83 @@
+﻿@model LabStore.ViewModels.ReagentViewModel
+@using FlashMessage;
+
+@{
+
+    ViewBag.Title = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "Reagents", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>@Model.Subtitle</h4>
+    <hr />
+    <span class="text-danger">@Html.Flash()</span>
+    @Html.ValidationSummary(true, "Proszę poprawić następujące dane:", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(r => r.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(r => r.Name, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(r => r.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.InitialAmount, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(r => r.InitialAmount, new { @class = "form-control", id = "initialAmount" })
+        </div>
+        @Html.ValidationMessageFor(r => r.InitialAmount)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.ConsumedAmount, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(r => r.ConsumedAmount, new { @class = "form-control", id = "consumedAmount", onblur = "calculate()" })
+        </div>
+        @Html.ValidationMessageFor(r => r.ConsumedAmount)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.FinalAmount, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(r => r.FinalAmount, new { @class = "form-control", id = "finalAmount" })
+        </div>
+        @Html.ValidationMessageFor(r => r.FinalAmount)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.UnitId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(r => r.UnitId, new SelectList(Model.Units, "Id", "Name"),
+           "Wybierz jednostkę", new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(r => r.UnitId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.StorageLocationId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(r => r.StorageLocationId, new SelectList(Model.StorageLocations, "Id", "Name"),
+           "Wybierz miejsce przechowywania", new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(r => r.StorageLocationId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.Comment, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(r => r.Comment, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(r => r.Comment)
+    </div>
+    @Html.HiddenFor(r => r.Id)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="@Model.SaveButtonText" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script src="~/Scripts/LabManager/lm-final-amount-calculate.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/LabManager/lm-custom-number-validate.js"></script>
+}

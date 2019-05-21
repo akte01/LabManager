@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Sprzęt";
+}
+
+<h2>Lista dostępnego sprzętu</h2>
+
+<p>
+    @Html.ActionLink("Dodaj sprzęt", "New", "Equipment", null, new { @class = "btn btn-primary" })
+</p>
+
+<table id="equipment" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Sprzęt</th>
+            <th>Ilość</th>
+            <th>Lokalizacja</th>
+            <th>Uwagi</th>
+            <th>Edytuj</th>
+            <th>Usuń</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts
+{
+    <script src="~/Scripts/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/jszip.js"></script>
+    <script src="~/Scripts/pdfmake/pdfmake.min.js"></script>
+    <script src="~/Scripts/pdfmake/vfs_fonts.js"></script>
+    <script src="~/Scripts/datatables/buttons.flash.min.js"></script>
+    <script src="~/Scripts/datatables/buttons.html5.min.js"></script>
+    <script src="~/Scripts/datatables/buttons.print.min.js"></script>
+    <script src="~/Scripts/LabManager/lm-admin-equipment-table.js"></script>
+}

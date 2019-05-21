@@ -1,0 +1,50 @@
+﻿@model LabStore.ViewModels.OrderEditorViewModel
+
+@{
+    ViewBag.Title = "OrderEditorForm";
+}
+
+<h2>Edycja zamówienia</h2>
+
+@using (Html.BeginForm("SaveEditedOrder", "Orders", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Formularz edycji zamówienia</h4>
+    <hr />
+    @Html.ValidationSummary(true, "Proszę poprawić następujące dane:", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(o => o.DateFor, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(o => o.DateFor, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(o => o.DateFor)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(o => o.Grade, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(o => o.Grade, new { @class = "form-control"})
+        </div>
+        @Html.ValidationMessageFor(o => o.Grade)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(o => o.Content, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(o => o.Content, new { @class = "form-control", @style = "height:100px" })
+        </div>
+        @Html.ValidationMessageFor(o => o.Content)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(o => o.Comment, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(o => o.Comment, new { @class = "form-control" })
+        </div>
+        @Html.ValidationMessageFor(o => o.Comment)
+    </div>
+    @Html.HiddenFor(o => o.Id)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Zapisz zmiany" class="btn btn-primary" />
+        </div>
+    </div>
+}
