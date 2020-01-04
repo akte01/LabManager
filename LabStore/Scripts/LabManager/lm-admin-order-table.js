@@ -56,14 +56,14 @@
             {
                 data: "Status.Name",
                 render: function (data, type, full, meta) {
-                    return "<form id='changeStatus' method='post' action='orders/ChangeStatus/'>"
+                    return "<form id='changeStatus'>"
                         + "<div class='changeStatusForm'><select class='form-control' name='StatusId'>"
                         + "<option value='' selected disabled hidden>" + full.Status.Name + "</option>"
                         + "<option value='1'>W przygotowaniu</option>"
                         + "<option value='2'>Zrealizowano</option>"
                         + "</select >"
                         + "<input type = 'hidden' name = 'Id' value = '" + full.Id + "'></div > "
-                        + "<button type='submit' class='btn btn-primary' >Zmień status</span ></button ></form > ";
+                        + "<button type='button' class='btn btn-primary js-change' >Zmień status</span ></button ></form > ";
                 },
                 width: "100px"
             },
@@ -99,6 +99,7 @@
         .appendTo('#example_wrapper .col-sm-6:eq(0)');
 
     $("#orders").on("click", ".js-delete", function () {
+        console.log("delete");
         var button = $(this);
         bootbox.confirm("Czy napewno chcesz usunąć wybrane zamówienie?", function (result) {
             if (result) {
@@ -113,12 +114,15 @@
         });
     });
 
-    $("#changeStatus").submit(function () {
+    $("#orders").on("click", ".js-change", function () {
+        console.log("change");
         $.ajax({
-            url: 'reagents/ChangeStatus',
-            type: "POST",
-            data: $("#changeStatus").serialize()
+            url: "/api/orders",
+            method: "POST",
+            data: $("#changeStatus").serialize(),
+            success: function () {
+                bootbox.alert("Status został pomyślnie zmieniony")
+            }
         });
-        return false;
     });
 });

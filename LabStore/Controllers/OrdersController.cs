@@ -74,23 +74,6 @@ namespace LabStore.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult ChangeStatus(ChangeStatusViewModel data)
-        {
-            if (data != null)
-            {
-                var orderInDb = _uow.GetRepository<Order>().Get(r => r.Id == data.Id);
-                if (data.StatusId != 0)
-                {
-                    orderInDb.StatusId = data.StatusId;
-                }
-                _uow.SaveChanges();
-
-                return RedirectToAction("Index", "Orders");
-            }
-            return HttpNotFound();
-        }
-
         public ActionResult DeleteItem(string databaseName, int id)
         {
             switch (databaseName)

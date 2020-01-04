@@ -2,6 +2,7 @@
 using LabStore.Dtos;
 using LabStore.Models;
 using LabStore.Repositories;
+using LabStore.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
@@ -24,6 +25,7 @@ namespace LabStore.Controllers.Api
             _uow = uow;
         }
 
+        [HttpGet]
         public IHttpActionResult GetOrders(string query = null)
         {
             var id = User.Identity.GetUserId();
@@ -64,6 +66,23 @@ namespace LabStore.Controllers.Api
             _uow.GetRepository<Order>().Remove(orderInDb);
             _uow.SaveChanges();
             return Ok();
+        }
+
+        [HttpPost]
+        public IHttpActionResult ChangeStatus(ChangeStatusViewModel data)
+        {
+            if (data != null)
+            {
+                var orderInDb = _uow.GetRepository<Order>().Get(r => r.Id == data.Id);
+                if (data.StatusId != 0)
+                {
+                    orderInDb.StatusId = data.StatusId;
+                }
+                _uow.SaveChanges();
+
+                return Ok();
+            }
+            return NotFound();
         }
     }
 }
